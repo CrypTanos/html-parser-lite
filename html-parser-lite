@@ -1,0 +1,24 @@
+# Парсер для работы с HTML-страницами
+
+from bs4 import BeautifulSoup
+
+def parse_html(html_content, tag):
+    """
+    Извлекает содержимое указанного тега из HTML.
+    """
+    soup = BeautifulSoup(html_content, 'html.parser')
+    elements = soup.find_all(tag)
+    return [element.text for element in elements]
+
+def get_links(html_content):
+    """
+    Извлекает все ссылки (теги <a>) из HTML.
+    """
+    soup = BeautifulSoup(html_content, 'html.parser')
+    links = soup.find_all('a', href=True)
+    return [link['href'] for link in links]
+
+# Пример использования:
+# html = """<html><body><h1>Привет, мир!</h1><a href='https://example.com'>Ссылка</a></body></html>"""
+# print(parse_html(html, 'h1'))
+# print(get_links(html))
